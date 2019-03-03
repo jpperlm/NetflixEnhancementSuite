@@ -1,6 +1,9 @@
 window.onscroll = function () {
   remove_visible();
 };
+window.onload = function () {
+  remove_visible();
+};
 function remove_visible(){
   const class_names = ['billboard-row','bigRow'];
   class_names.forEach(name=>{
