@@ -5,8 +5,7 @@
   "author": "Jason Perlman (PerlmanLabs.com)",
   "content_scripts": [{
   "matches": ["*://*.netflix.com/*"],
-  "css":["styles.css"],
-  "js": ["content.js"]
+  "css":["styles.css"]
   }],
   "manifest_version": 2
 }

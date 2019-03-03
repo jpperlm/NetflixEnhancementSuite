@@ -16,3 +16,12 @@
 //   });
 // }
 // remove_visible();
+
+function get_row_headers(){
+  let all_headers_list = [...document.querySelectorAll('.rowHeader .row-header-title')];
+  let header_names=[];
+  all_headers_list.forEach(item=>{
+    console.log(item.innerText);
+  })
+}
+get_row_headers();
