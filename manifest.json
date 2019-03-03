@@ -1,10 +1,11 @@
 {
-  "name": "Goodbye Netflix AutoPlaying Ads",
-  "version": "1.0",
+  "name": "Netflix Enhancement Suite",
+  "version": "1.3",
   "description": "Remove Pesky Netflix Auto Ads",
   "author": "Jason Perlman (PerlmanLabs.com)",
   "content_scripts": [{
   "matches": ["*://*.netflix.com/*"],
+  "css":["styles.css"],
   "js": ["content.js"]
   }],
   "manifest_version": 2
