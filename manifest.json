@@ -1,0 +1,11 @@
+{
+  "name": "NoNetflixAutoAds",
+  "version": "1.0",
+  "description": "Remove Pesky Netflix Auto Ads",
+  "author": "Jason Perlman (PerlmanLabs.com)",
+  "content_scripts": [{
+  "matches": ["*://*.netflix.com/*"],
+  "js": ["content.js"]
+  }],
+  "manifest_version": 2
+}
