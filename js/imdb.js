@@ -1,72 +1,121 @@
-let GLOBAL_API_RESPONSES={};
-function setup_listeners_for_title_card(){
-  document.addEventListener('mousemove',get_imdb_rating);
+const GLOBAL_API_RESPONSES={};
+/**
+ * Starts mouse listeners for hovering titles
+ */
+function setupListenersForTitleCards() {
+  document.addEventListener('mousemove', mouseMoveEvent);
 }
 
-function get_imdb_rating(e){
-  let title_card = e.path.find(x=>{
-    if (x.classList){
+/**
+ * Triggered on mouse move. Looks to see if we are inside a title-card
+ * @param {int} e the event triggered
+ */
+function mouseMoveEvent(e) {
+  const tc = getTitleCard(e);
+  if (!tc) return;
+  const title = getShowTitle(tc);
+  handleTitleEvent(title, tc);
+}
+
+/**
+ * Looks to see if we are inside a title-card
+ * @param {int} e the event triggered
+ * @return {domelement} returns the titld-card
+ */
+function getTitleCard(e) {
+  const titleCard = e.path.find((x)=>{
+    if (x.classList) {
       return x.classList.contains('title-card-container');
     }
   });
-  if (!title_card){
-    return;
-  }
-  let t = title_card.getElementsByClassName('fallback-text')[0];
-  if (!t){
-    return;
-  }
-  let title = t.innerText;
-  if (!GLOBAL_API_RESPONSES[title]){
+  return titleCard;
+}
+
+/**
+ * Gets title of show
+ * @param {int} element the title card element
+ * @return {string} returns the title
+ */
+function getShowTitle(element) {
+  return element.getElementsByClassName('fallback-text')[0].innerText;
+}
+
+/**
+ * Figures out what to do with the title
+ * @param {string} title the title
+ * @param {domelement} tc the title card element
+ */
+function handleTitleEvent(title, tc) {
+  if (!GLOBAL_API_RESPONSES[title]) {
     GLOBAL_API_RESPONSES[title] = 'loading';
-    chrome.runtime.sendMessage({
+    const payload = {
       cs_request_type: 'omdb_title',
       title: title,
-    },response=>{
-      if (response.Response){
+    };
+    chrome.runtime.sendMessage(payload, (response)=> {
+      if (response.Response) {
         GLOBAL_API_RESPONSES[title] = response;
-        add_information_to_box(response,title_card);
+        appendElements(response, tc);
       }
-    })
-  }else{
-    if (GLOBAL_API_RESPONSES[title] === 'loading'){
+    });
+  } else if (GLOBAL_API_RESPONSES[title] === 'loading') {
+    return;
+  } else {
+    appendElements(GLOBAL_API_RESPONSES[title], tc);
+  }
+}
+
+/**
+ * Checks if we need to add the element onto the page and adds if so
+ * @param {object} data IMDB Object of information
+ * @param {domelement} titleCard DOM Element class title-card-container
+ * @param {int} i tries
+
+ */
+function appendElements(data, titleCard, i=0) {
+  const actionButtonsElement =
+    titleCard.getElementsByClassName('bob-title')[0];
+  if (!actionButtonsElement) {
+    if (i>20) return;
+    setTimeout(function() {
+      appendElements(data, titleCard, i+1);
       return;
-    }
-    add_information_to_box(GLOBAL_API_RESPONSES[title],title_card,true);
-  }
+    }, 100);
+    return;
+  };
+  const imdbButton = actionButtonsElement
+      .getElementsByClassName('netflix-es-imdb-circle-hover')[0];
+  if (imdbButton) return;
+  const newIMDBElement = createIMDBElement(data);
+  actionButtonsElement.appendChild(newIMDBElement);
 }
-function add_information_to_box(data, title_card, should_check_if_already_exists){
-  let go = true;
-  if (should_check_if_already_exists){
-    //Check if information already added to page
-    //if yes set go to false;
-    if (title_card.lastChild.classList.contains('netflix-es-overlay-container')){
-      go=false;
-    }
-  }
-  if (go){
-    //Add data to item
-    let element = make_overlay_element(data,title_card.clientHeight);
-    title_card.append(element);
-  }
-}
-function make_overlay_element(data,height){
-  var element = document.createElement('div');
-  element.onclick=more_info;
-  element.onmouseover=more_info;
-  element.onmouseenter=more_info;
-  element.onmousemove=more_info;
-  element.onpointermove=more_info;
-  element.onpointermove=more_info;
-  element.classList.add('netflix-es-overlay-container');
-  var element_inner = document.createElement('div');
-  element_inner.innerText=data.imdbRating;
-  element.appendChild(element_inner);
+
+/**
+ * Creates element based on data
+ * @param {object} data IMDB Object of information
+ * @return {domelement} IMDB Circle
+ */
+function createIMDBElement(data) {
+  const element = document.createElement('div');
+  element.classList.add('netflix-es-imdb-circle-hover');
+  element.classList.add('nf-svg-button-wrapper');
+  element.classList.add('netflix-es-imdb-circle-hover');
+  element.name = data.Title;
+  const inner = document.createElement('a');
+  inner.classList.add('netflix-es-imdb-circle-inside');
+  inner.classList.add('simpleround');
+  inner.classList.add('nf-svg-button');
+  inner.innerText=data.imdbRating;
+  element.onmouseenter=moreInfoShow;
+  element.onmouseleave=moreInfoHide;
+  element.appendChild(inner);
   return element;
 }
-function more_info(e){
-  e.stopPropagation();
-  e.preventDefault();
-  e.stopImmediatePropagation();
+
+function moreInfoShow(e) {
+  // debugger;
 }
-setup_listeners_for_title_card();
+function moreInfoHide(e) {
+  // debugger;
+}
+setupListenersForTitleCards();

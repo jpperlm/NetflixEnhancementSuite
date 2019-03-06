@@ -28,36 +28,8 @@
 .netflix-es-order-list-item:hover{
   background-color: red;
 }
-
-.netflix-es-overlay-container{
-  display:flex;
-  position:absolute!important;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
-  transition-duration: 400ms;
-  background-color: #1414149e;
-  border-radius: 100%;
-  border:1px solid #928b8b;
-  width:25px;
-  height:25px;
-  cursor: pointer;
-}
-div.title-card:not(.title-card-tall-panel) ~ div.netflix-es-overlay-container{
-  top:-15%;
-  right:calc(50% - 12.5px);
-}
-div.title-card.is-bob-open:not(.title-card-tall-panel) ~ div.netflix-es-overlay-container{
-  right: calc(-52.5%)!important;
-  top: calc(-54.5%)!important;
-}
-div.title-card.title-card-tall-panel ~ div.netflix-es-overlay-container{
-  top:-13%;
-  right:50%;
-}
-div.title-card.is-bob-open.title-card-tall-panel ~ div.netflix-es-overlay-container{
-  right: calc(-17%)!important;
-  top: calc(-44%)!important;
+.netflix-es-imdb-circle-hover{
+  font-size: .9vw !important;
+  display:inline-flex!important;
+  margin-left:6px!important;
 }
