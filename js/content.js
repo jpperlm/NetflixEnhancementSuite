@@ -6,7 +6,8 @@ let CURRENT_VISIBLE = [];
 let DRAGGING_ELEMENT= undefined;
 function get_reorder_list_from_storage(){
   chrome.storage.sync.get(['order_list'], function(result) {
-     GLOBAL_ORDER = result.order_list.filter(x=> x)
+    let list = result.order_list || [];
+     GLOBAL_ORDER = list.filter(x=> x)
      section_header_wrapper(true);
    });
 }
@@ -192,7 +193,6 @@ function jumpToCategory(e){
 
 
 //Run on load
-// set_reorder_list_from_storage();
 get_reorder_list_from_storage();
 // debugger
 
