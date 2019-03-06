@@ -47,7 +47,7 @@
 }
 div.title-card:not(.title-card-tall-panel) ~ div.netflix-es-overlay-container{
   top:-15%;
-  right:50%;
+  right:calc(50% - 12.5px);
 }
 div.title-card.is-bob-open:not(.title-card-tall-panel) ~ div.netflix-es-overlay-container{
   right: calc(-52.5%)!important;

@@ -1,14 +1,19 @@
 {
   "name": "Netflix ES (Enhancement Suite)",
-  "version": "1.7",
+  "version": "1.8",
   "description": "Improve netflix experience",
   "author": "Jason Perlman (PerlmanLabs.com)",
+  "background": {
+   "scripts": ["js/api_listener.js"],
+   "persistent": false
+ },
   "content_scripts": [{
   "matches": ["*://*.netflix.com/*"],
   "css":["styles.scss"],
-  "js": ["content.js"]
+  "js": ["js/content.js", "js/imdb.js"]
   }],
   "permissions": [
+        "https://www.perlmanlabs.com/*",
         "storage"
       ],
   "manifest_version": 2

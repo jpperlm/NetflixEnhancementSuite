@@ -40,7 +40,7 @@ function add_information_to_box(data, title_card, should_check_if_already_exists
   if (should_check_if_already_exists){
     //Check if information already added to page
     //if yes set go to false;
-    if (title_card.firstChild.classList.contains('netflix-es-overlay-container')){
+    if (title_card.lastChild.classList.contains('netflix-es-overlay-container')){
       go=false;
     }
   }

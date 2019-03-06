@@ -1,0 +1,23 @@
+{
+  "name": "netflixes",
+  "version": "1.0.0",
+  "description": "netflix enhancement suite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpperlm/NoNetflixAutoAds.git"
+  },
+  "author": "jasonperlman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpperlm/NoNetflixAutoAds/issues"
+  },
+  "homepage": "https://github.com/jpperlm/NoNetflixAutoAds#readme",
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-google": "^0.12.0"
+  }
+}
