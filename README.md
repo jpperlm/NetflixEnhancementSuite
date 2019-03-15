@@ -1,4 +1,4 @@
-# NoNetflixAutoAds
+# Netflix EX
 
 Chrome Extension to remove the pesky auto playing ads on Netflix.
 
